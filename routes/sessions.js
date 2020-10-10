@@ -12,12 +12,23 @@ router.get('/', async(req, res) => {
     }
 });
 
-router.post('/', async(req, res) => {
+router.post('/host', async(req, res) => {
     try {
-        const {hostID, hostName} = req.body;
+        const {hostName} = req.body;
         const joinCode = uniqid();
-        const session = new Session({joinCode, hostID, hostName});
+        const session = new Session({joinCode, hostName});
         session.save();
+        res.send(session);
+    } catch(err) {
+        res.error(err);
+    }
+});
+
+router.post('/join', async(req, res) => {
+    try {
+        const {joinCode, guestName} = req.body;
+        const session = await Session.findOneAndUpdate({joinCode}, {guestName}, {new: true});
+
         res.send(session);
     } catch(err) {
         res.error(err);

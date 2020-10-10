@@ -8,7 +8,6 @@ const sessionSchema = new mongoose.Schema({
     },
     hostID: {
         type: String,
-        required: true
     },
     guestID: {
         type: String,
