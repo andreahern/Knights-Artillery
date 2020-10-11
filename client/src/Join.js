@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios'
 
-const Join = () => {
+const Join = (props) => {
     const [joinCode, setJoinCode] = useState("");
     const [guestName, setGuestName] = useState("");
     
@@ -11,7 +11,7 @@ const Join = () => {
         axios.post('/sessions/join', {joinCode, guestName})
         .then((res) => {
             console.log(res.data);
-            props.history.push(`/table`);
+            props.history.push({pathname: `/table`, state: {joinCode, guestName}});
         }).catch((err) => {
             console.log(err);
         });

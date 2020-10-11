@@ -9,7 +9,8 @@ const Host = (props) => {
         console.log(name);
         axios.post('/sessions/host', {hostName: name}).then((res) => {
             console.log(res.data);
-            props.history.push(`/table`);
+            const {joinCode, hostName} = res.data
+            props.history.push({pathname: `/table`, state: {joinCode, hostName}});
         }).catch(err => {
             console.log(err);
         })
